@@ -1,3 +1,4 @@
+from copy import deepcopy
 class AlertParser:
     def __init__(self, entries):
         self.alerts = []
@@ -18,9 +19,9 @@ class AlertParser:
             raise ValueError("Offset must be a positive integer")
 
         if ids:
-            alerts = self._filter_alerts(ids)
+            alerts = deepcopy(self._filter_alerts(ids))
         else:
-            alerts = self.alerts
+            alerts = deepcopy(self.alerts)
         
         return {
             "total_items": len(alerts),
@@ -37,7 +38,7 @@ class AlertParser:
             if agentID in agents:
                 agents[agentID]["total_alerts"] += 1
             else:
-                agents[agentID]=alert["agent"]
+                agents[agentID]=deepcopy(alert["agent"])
                 agents[agentID]["total_alerts"] = 1
 
         return {
@@ -50,7 +51,7 @@ class AlertParser:
             agentID = alert["agent"]["id"]
             if agentID == str(id):
                 if agent is None:
-                    agent = {**alert["agent"]}
+                    agent = deepcopy(alert["agent"])
                     agent["alerts"]=[alert]
                 else:
                     agent["alerts"].append(alert)
@@ -71,7 +72,7 @@ class AlertParser:
             if ruleID in rules:
                 rules[ruleID]["total_alerts"] += 1
             else:
-                rules[ruleID]=alert["rule"]
+                rules[ruleID]=deepcopy(alert["rule"])
                 rules[ruleID]["total_alerts"] = 1
 
         return {
@@ -84,7 +85,7 @@ class AlertParser:
             ruleID = alert["rule"]["id"]
             if ruleID == str(id):
                 if rule is None:
-                    rule = {**alert["rule"]}
+                    rule = deepcopy(alert["rule"])
                     rule["alerts"]=[alert]
                 else:
                     rule["alerts"].append(alert)
