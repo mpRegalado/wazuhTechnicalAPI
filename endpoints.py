@@ -1,21 +1,27 @@
 from flask import Blueprint, jsonify, request
+import pdb
+
 
 def create_blueprint_data(parser):
     endpoint = Blueprint("access_data",__name__)
 
     @endpoint.route("/alerts", methods=["GET"])
     def get_alerts():
-        offset = request.json["offset"]
-        limit = request.json["limit"]
-        id = request.json["id"]
+        offset = int(request.args.get("offset"))
+        limit = int(request.args.get("limit"))
+        if(request.args.get("id")):
+            id = request.args.get("id")
+            id = [float(i) for i in id.split(',')]
+        else:
+            id = []
 
         response = parser.get_alerts(offset,limit,id)
         return jsonify(response)
     
     @endpoint.route("/agents", methods=["GET"])
     def get_agents():
-        offset = request.json["offset"]
-        limit = request.json["limit"]
+        offset = int(request.args.get("offset"))
+        limit = int(request.args.get("limit"))
 
         response = parser.get_agents(offset,limit)
         return jsonify(response)
@@ -28,9 +34,8 @@ def create_blueprint_data(parser):
 
     @endpoint.route("/rules")
     def get_rules():
-        offset = request.json["offset"]
-        limit = request.json["limit"]
-
+        offset = int(request.args.get("offset"))
+        limit = int(request.args.get("limit"))
         response = parser.get_rules(offset,limit)
         return jsonify(response)
 

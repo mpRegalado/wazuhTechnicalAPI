@@ -74,3 +74,18 @@ def generate_rule_id_response(rule,alertArray):
             "alerts": alertArray
         }
     }
+
+testEntries = [
+    generate_entry(11,12,1),
+    generate_entry(21,22,2),
+    generate_entry(31,32,3),
+    generate_entry(21,12,4),
+    generate_entry(51,12,5)
+]
+testAlerts = [
+    generate_alert(11,12,1),
+    generate_alert(21,22,2),
+    generate_alert(31,32,3),
+    generate_alert(21,12,4),
+    generate_alert(51,12,5)
+]
