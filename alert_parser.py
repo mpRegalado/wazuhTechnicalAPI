@@ -1,9 +1,12 @@
 from copy import deepcopy
 class AlertParser:
     def __init__(self, entries):
+        self.entries = deepcopy(entries)
         self.alerts = []
-        for entry in entries:
-            self.alerts.append(entry["_source"])
+        for entry in self.entries:
+            alert = deepcopy(entry["_source"])
+            alert["uid"]=entry["_id"]           
+            self.alerts.append(alert)
 
     def _filter_alerts(self, ids=[]):
         #The GET request may include a list of IDs as numbers, in that case, we only check the matching alerts.

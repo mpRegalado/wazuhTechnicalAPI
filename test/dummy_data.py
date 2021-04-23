@@ -15,12 +15,13 @@ def generate_alert(agentID, ruleID, alertID):
     return {
         "rule": generate_rule(ruleID),
         "agent": generate_agent(agentID),
-        "id": str(alertID)
+        "id": str(alertID),
+        "uid":str(alertID)
     }
 
 def generate_entry(agentID, ruleID, alertID):
     return {
-        "_id": "001",
+        "_id": str(alertID),
         "_source" : generate_alert(agentID,ruleID,alertID)
     }
 
