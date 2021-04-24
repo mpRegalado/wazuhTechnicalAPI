@@ -41,6 +41,10 @@ def test_get_rules():
     parser = AlertParser(testEntries)
     response = generate_rules_response(3,[generate_rule(22),1],[generate_rule(32),1])
     assert parser.get_rules(1,2) == response
+def test_get_all_rules():
+    parser = AlertParser(testEntries)
+    response = generate_rules_response(3,[generate_rule(12),3],[generate_rule(22),1],[generate_rule(32),1])
+    assert parser.get_rules(0,0) == response
 def test_get_rule_by_id():
     parser = AlertParser(testEntries)
     response = generate_rule_id_response(generate_rule(12),[generate_alert(11,12,1),generate_alert(21,12,4),generate_alert(51,12,5)])
