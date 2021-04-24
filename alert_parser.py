@@ -59,8 +59,8 @@ class AlertParser:
     def get_agent_by(self, id):
         agent = None
         for alert in self.alerts:
-            agentID = alert["agent"]["id"]
-            if agentID == str(id):
+            agentID = int(alert["agent"]["id"])
+            if agentID == id:
                 if agent is None:
                     agent = deepcopy(alert["agent"])
                     agent["alerts"]=[alert]
@@ -97,8 +97,8 @@ class AlertParser:
     def get_rule_by(self, id):
         rule = None
         for alert in self.alerts:
-            ruleID = alert["rule"]["id"]
-            if ruleID == str(id):
+            ruleID = int(alert["rule"]["id"])
+            if ruleID == id:
                 if rule is None:
                     rule = deepcopy(alert["rule"])
                     rule["alerts"]=[alert]
