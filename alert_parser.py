@@ -26,9 +26,13 @@ class AlertParser:
         else:
             alerts = deepcopy(self.alerts)
         
+        if (limit == 0):
+            data = alerts[offset:]
+        else:
+            data = alerts[offset:offset+limit]
         return {
             "total_items": len(alerts),
-            "data": alerts[offset:offset+limit]
+            "data": data
         }
 
     def get_agents(self, offset,limit):
@@ -44,9 +48,13 @@ class AlertParser:
                 agents[agentID]=deepcopy(alert["agent"])
                 agents[agentID]["total_alerts"] = 1
 
+        if (limit == 0):
+            data = list(agents.values())[offset:]
+        else:
+            data = list(agents.values())[offset:offset+limit]
         return {
             "total_items": len(agents),
-            "data" : list(agents.values())[offset:offset+limit]
+            "data" : data
         }
     def get_agent_by(self, id):
         agent = None
@@ -78,6 +86,10 @@ class AlertParser:
                 rules[ruleID]=deepcopy(alert["rule"])
                 rules[ruleID]["total_alerts"] = 1
 
+        if (limit == 0):
+            data = list(rules.values())[offset:]
+        else:
+            data = list(rules.values())[offset:offset+limit]
         return {
             "total_items": len(rules),
             "data" : list(rules.values())[offset:offset+limit]

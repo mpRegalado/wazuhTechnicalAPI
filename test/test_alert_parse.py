@@ -15,7 +15,7 @@ def test_load_empty():
 def test_get_all_alerts():
     parser = AlertParser(testEntries)
     response = generate_alert_response(5,testAlerts)
-    assert parser.get_alerts(0,10,[]) ==response
+    assert parser.get_alerts(0,0,[]) ==response
 
 def test_get_range_alerts():
     parser = AlertParser(testEntries)
