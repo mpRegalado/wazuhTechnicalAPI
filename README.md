@@ -26,6 +26,7 @@ You can run the api by running
 ```
 FLASK_APP=app flask run
 ```
+The endpoints should be available at `http://127.0.0.1:5000`
 
 Or you may run the unit tests with
 ```
