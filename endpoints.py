@@ -36,7 +36,7 @@ def create_blueprint_data(parser):
     
     @endpoint.route("/agents/:<int:id>")
     def get_agent(id):
-        jsonify(response = parser.get_agent_by(id))
+        response = jsonify(parser.get_agent_by(id))
 
         response.headers.add("Access-Control-Allow-Origin", "*")
         return response
