@@ -11,7 +11,6 @@ def corsDecorator(func):
 def create_blueprint_data(parser):
     endpoint = Blueprint("access_data",__name__)
 
-    @corsDecorator
     @endpoint.route("/alerts", methods=["GET"])
     def get_alerts():
         offset = int(request.args.get("offset"))
@@ -22,37 +21,38 @@ def create_blueprint_data(parser):
         else:
             id = []
 
-        response = parser.get_alerts(offset,limit,id)
-        return jsonify(response)
+        response = jsonify(parser.get_alerts(offset,limit,id))
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
     
-    @corsDecorator
     @endpoint.route("/agents", methods=["GET"])
     def get_agents():
         offset = int(request.args.get("offset"))
         limit = int(request.args.get("limit"))
 
-        response = parser.get_agents(offset,limit)
-        return jsonify(response)
+        response = jsonify(parser.get_agents(offset,limit))
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
     
-    @corsDecorator
     @endpoint.route("/agents/:<int:id>")
     def get_agent(id):
-        response = parser.get_agent_by(id)
+        jsonify(response = parser.get_agent_by(id))
 
-        return jsonify(response)
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
 
-    @corsDecorator
     @endpoint.route("/rules")
     def get_rules():
         offset = int(request.args.get("offset"))
         limit = int(request.args.get("limit"))
-        response = parser.get_rules(offset,limit)
-        return jsonify(response)
+        response = jsonify(parser.get_rules(offset,limit))
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
 
-    @corsDecorator
     @endpoint.route("/rules/:<int:id>")
     def get_rule(id):
-        response = parser.get_rule_by(id)
-        return jsonify(response)
+        response = jsonify(parser.get_rule_by(id))
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
 
     return endpoint
