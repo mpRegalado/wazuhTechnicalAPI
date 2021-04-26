@@ -14,8 +14,8 @@ def create_app(parser = AlertParser([])):
     CORS(app=app, support_credentials=True)
     return app
 
+with open('assets/alerts.json') as file:
+    parser = AlertParser(json.load(file))
+app = create_app(parser)
 if __name__ == '__main__':
-    with open('assets/alerts.json') as file:
-        parser = AlertParser(json.load(file))
-    app = create_app(parser)
     app.run()
