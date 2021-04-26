@@ -1,4 +1,5 @@
 from copy import deepcopy
+import pdb
 class AlertParser:
     def __init__(self, entries):
         self.entries = deepcopy(entries)
@@ -8,18 +9,9 @@ class AlertParser:
             alert["uid"]=entry["_id"]           
             self.alerts.append(alert)
 
-    def _filter_alerts(self, ids=[]):
-
-        alerts = []
-        for alert in self.alerts:
-            if float(alert["id"]) in ids:
-                alerts.append(alert)
-        
-        return alerts
-    
-    def get_alerts(self, offset,limit,ids):
+    def get_alerts(self, offset=0,limit=0,ids=[]):
         if ids:
-            alerts = deepcopy(self._filter_alerts(ids))
+            alerts = deepcopy([alert for alert in self.alerts if int(alert["id"]) in ids])
         else:
             alerts = deepcopy(self.alerts)
         
@@ -32,7 +24,7 @@ class AlertParser:
             "data": data
         }
 
-    def get_agents(self, offset,limit):
+    def get_agents(self, offset=0,limit=0):
         agents = {}
         for alert in self.alerts:
             agentID = alert["agent"]["id"]
@@ -67,7 +59,7 @@ class AlertParser:
             "data" : agent
         }
 
-    def get_rules(self, offset,limit):
+    def get_rules(self, offset=0,limit=0):
         rules = {}
         for alert in self.alerts:
             ruleID = alert["rule"]["id"]
