@@ -1,5 +1,10 @@
 # API for the Wazuh Technical test
+## [Live version here](https://wazuh-technical-front.web.app/)
+
 In this project, I have built an API that presents data from the file `assets/alerts.json` through a series of endpoints.
+
+You can access the API endpoints with this baseURL
+[https://wazuh-technical-api.herokuapp.com/](https://wazuh-technical-api.herokuapp.com/)
 
 ## Installation
 These instructions are meant to be followed in a linux CLI
